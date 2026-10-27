@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Phantom — Beyond the Ordinary</title>
+  <meta name="description" content="Discover Phantom. An extraordinary presence. An unforgettable arrival.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <a class="brand" href="#">PHANTOM</a>
+    <span class="edition">BESPOKE EXPERIENCE</span>
+    <button class="sound-button" id="soundButton" type="button">
+      SOUND OFF
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+
+      <video
+        class="hero-video"
+        id="heroVideo"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster=""
+      >
+        <source src="assets/phantom-coastal.mp4" type="video/mp4">
+      </video>
+
+      <div class="video-overlay"></div>
+      <div class="vignette"></div>
+
+      <div class="hero-content">
+        <img
+          class="spirit"
+          src="assets/spirit-of-ecstasy.svg"
+          alt="Spirit of Ecstasy sculpture"
+        >
+
+        <p class="eyebrow">THE ART OF ARRIVAL</p>
+
+        <h1>BEYOND THE<br>ORDINARY</h1>
+
+
+        <p class="description">
+          An extraordinary presence. An unforgettable arrival.
+        </p>
+
+        <a href="#discover" class="cta">
+          DISCOVER PHANTOM
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="hero-footer">
+        <span>EFFORTLESSLY EXTRAORDINARY</span>
+        <span>01 — 03</span>
+      </div>
+
+      <div class="scroll-indicator">
+        <span></span>
+        SCROLL TO DISCOVER
+      </div>
+
+    </section>
+
+    <section class="discover" id="discover">
+      <p class="eyebrow">A WORLD OF ITS OWN</p>
+      <h2>Quiet confidence.<br>Unmistakable presence.</h2>
+      <p>
+        More than a journey. A statement of individuality,
+        craftsmanship and timeless elegance.
+      </p>
+      <a class="text-link" href="#hero">RETURN TO THE EXPERIENCE ↑</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

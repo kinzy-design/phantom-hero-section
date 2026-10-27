@@ -1,0 +1,870 @@
+```css
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap');
+
+/* =========================
+   1. ROOT & RESET
+========================= */
+
+:root {
+  --midnight: #08120f;
+  --emerald: #12382f;
+  --silver: #bfc8c6;
+  --ivory: #f0eee6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--midnight);
+  color: var(--ivory);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================
+   2. NAVIGATION
+========================= */
+
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  padding: 30px 5%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid rgba(240, 238, 230, 0.12);
+}
+
+.brand {
+  color: var(--ivory);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 5px;
+  font-weight: 400;
+}
+
+.edition {
+  color: var(--silver);
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+
+.sound-button {
+  padding: 11px 15px;
+  background: transparent;
+  color: var(--ivory);
+  border: 1px solid rgba(240, 238, 230, 0.4);
+
+  font-family: inherit;
+  font-size: 9px;
+  letter-spacing: 2px;
+
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sound-button:hover {
+  background: var(--ivory);
+  color: var(--midnight);
+}
+
+/* =========================
+   3. HERO SECTION
+========================= */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  overflow: hidden;
+
+  display: grid;
+  place-items: center;
+
+  background: var(--midnight);
+}
+
+/* Background video */
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1.02);
+}
+
+/* =========================
+   4. CINEMATIC SHADOW
+========================= */
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      0deg,
+      rgba(4, 10, 8, 0.95) 0%,
+      rgba(4, 10, 8, 0.58) 45%,
+      rgba(4, 10, 8, 0.30) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(4, 10, 8, 0.35),
+      transparent 50%,
+      rgba(4, 10, 8, 0.35)
+    );
+
+  opacity: 0.25;
+  transition: opacity 2.2s ease;
+  pointer-events: none;
+}
+
+/* JavaScript adds this class when the front view arrives */
+
+.hero.shadow-mode .video-overlay {
+  opacity: 1;
+}
+
+/* Cinematic vignette */
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: radial-gradient(
+    ellipse at center,
+    transparent 5%,
+    rgba(0, 0, 0, 0.15) 55%,
+    rgba(0, 0, 0, 0.48) 100%
+  );
+
+  pointer-events: none;
+}
+
+/* =========================
+   5. HERO CONTENT
+========================= */
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+
+  width: min(90%, 800px);
+  padding: 120px 0 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Content becomes visible when JS adds the class */
+
+.hero-content.show-content {
+  visibility: visible;
+}
+
+/* =========================
+   6. SPIRIT OF ECSTASY SVG
+========================= */
+
+.spirit {
+  display: block;
+
+  width: 66px;
+  height: 85px;
+
+  object-fit: contain;
+  margin-bottom: 25px;
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+
+  filter: brightness(0) saturate(100%)
+          invert(91%) sepia(8%) saturate(160%)
+          hue-rotate(100deg);
+}
+
+.show-content .spirit {
+  animation: spirit-arrive 1.5s ease forwards;
+}
+
+/* =========================
+   7. EYEBROW TEXT
+========================= */
+
+.hero-content .eyebrow {
+  margin-bottom: 24px;
+
+  color: var(--silver);
+
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 5px;
+
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.show-content .eyebrow {
+  animation: text-arrive 1s 0.45s ease forwards;
+}
+
+/* =========================
+   8. MAIN HEADING
+========================= */
+
+.hero-content h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(43px, 7.5vw, 94px);
+
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: 3px;
+
+  color: var(--ivory);
+
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.show-content h1 {
+  animation: heading-arrive 1.5s 0.75s ease forwards;
+}
+
+/* =========================
+   9. SUPPORTING DESCRIPTION
+========================= */
+
+.hero-content .description {
+  margin-top: 27px;
+
+  color: rgba(240, 238, 230, 0.82);
+
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 1px;
+
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.show-content .description {
+  animation: text-arrive 1.2s 1.15s ease forwards;
+}
+
+/* =========================
+   10. CTA BUTTON
+========================= */
+
+.hero-content .cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+
+  margin-top: 36px;
+  padding: 17px 24px;
+
+  color: var(--ivory);
+  text-decoration: none;
+
+  border: 1px solid rgba(240, 238, 230, 0.55);
+
+  font-size: 9px;
+  letter-spacing: 2px;
+
+  opacity: 0;
+  transform: translateY(15px);
+
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.show-content .cta {
+  animation: text-arrive 1.2s 1.55s ease forwards;
+}
+
+.hero-content .cta:hover {
+  background: var(--ivory);
+  color: var(--midnight);
+  border-color: var(--ivory);
+}
+
+.hero-content .cta span {
+  font-size: 15px;
+  transition: transform 0.3s ease;
+}
+
+.hero-content .cta:hover span {
+  transform: translate(3px, -3px);
+}
+
+/* =========================
+   11. BOTTOM LABELS
+========================= */
+
+.hero-footer {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 28px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: rgba(240, 238, 230, 0.65);
+
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+
+/* Scroll indicator */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 70px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: rgba(240, 238, 230, 0.7);
+
+  font-size: 8px;
+  letter-spacing: 2px;
+
+  animation: indicator-pulse 2.5s infinite;
+}
+
+.scroll-indicator span {
+  display: block;
+  width: 25px;
+  height: 1px;
+
+  background: var(--silver);
+}
+
+/* =========================
+   12. DISCOVER SECTION
+========================= */
+
+.discover {
+  min-height: 70vh;
+  padding: 120px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      ellipse at top,
+      var(--emerald) 0%,
+      var(--midnight) 68%
+    );
+}
+
+.discover .eyebrow {
+  margin-bottom: 25px;
+
+  color: var(--silver);
+  font-size: 9px;
+  letter-spacing: 5px;
+}
+
+.discover h2 {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: clamp(38px, 6vw, 70px);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.discover > p:not(.eyebrow) {
+  max-width: 470px;
+  margin-top: 25px;
+
+  color: var(--silver);
+
+  font-size: 12px;
+  line-height: 2;
+}
+
+.text-link {
+  margin-top: 38px;
+  padding-bottom: 8px;
+
+  color: var(--ivory);
+  text-decoration: none;
+
+  border-bottom: 1px solid rgba(240, 238, 230, 0.4);
+
+  font-size: 9px;
+  letter-spacing: 2px;
+
+  transition: opacity 0.3s;
+}
+
+.text-link:hover {
+  opacity: 0.65;
+}
+
+/* =========================
+   13. ANIMATIONS
+========================= */
+
+@keyframes spirit-arrive {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+
+  100% {
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes text-arrive {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heading-arrive {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+    letter-spacing: 8px;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 3px;
+  }
+}
+
+@keyframes indicator-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   14. RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 24px 5%;
+  }
+
+  .hero-video {
+    object-position: 57% center;
+  }
+
+  .hero-content {
+    width: 92%;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(43px, 9vw, 70px);
+  }
+
+  .spirit {
+    width: 58px;
+    height: 75px;
+  }
+
+  .hero-footer {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 22px 5%;
+  }
+
+  .brand {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .edition {
+    display: none;
+  }
+
+  .sound-button {
+    padding: 9px 11px;
+    font-size: 8px;
+  }
+
+  .hero-video {
+    object-position: 60% center;
+  }
+
+  .hero-content {
+    padding: 100px 0 90px;
+  }
+
+  .spirit {
+    width: 52px;
+    height: 68px;
+    margin-bottom: 23px;
+  }
+
+  .hero-content .eyebrow {
+    font-size: 8px;
+    letter-spacing: 3px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(40px, 11vw, 62px);
+    letter-spacing: 2px;
+  }
+
+  .show-content h1 {
+    animation-name: mobile-heading-arrive;
+  }
+
+  .hero-content .description {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-content .cta {
+    gap: 16px;
+    padding: 15px 18px;
+    font-size: 8px;
+  }
+
+  .hero-footer {
+    left: 5%;
+    right: 5%;
+    bottom: 20px;
+
+    font-size: 6px;
+    letter-spacing: 0.8px;
+  }
+
+  .scroll-indicator {
+    bottom: 55px;
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+
+  .discover {
+    min-height: 65vh;
+    padding: 90px 20px;
+  }
+
+  .discover h2 {
+    font-size: clamp(38px, 10vw, 55px);
+  }
+}
+
+@keyframes mobile-heading-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    letter-spacing: 5px;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 2px;
+  }
+}
+
+/* =========================
+   15. REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+.hero-content.show-content {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.hero-content.show-content h1,
+.hero-content.show-content .eyebrow,
+.hero-content.show-content .description,
+.hero-content.show-content .cta {
+  animation-fill-mode: forwards;
+}
+
+.hero-content.show-content h1 {
+  opacity: 1;
+}
+
+.hero-content.show-content .eyebrow,
+.hero-content.show-content .description,
+.hero-content.show-content .cta {
+  animation-delay: 0s;
+}
+/* FIX: Force hero content to become visible */
+.hero-content.show-content {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: finalReveal 1.5s ease forwards !important;
+}
+
+.hero-content.show-content .spirit,
+.hero-content.show-content .eyebrow,
+.hero-content.show-content h1,
+.hero-content.show-content .description,
+.hero-content.show-content .cta {
+  visibility: visible !important;
+  animation-fill-mode: forwards !important;
+}
+
+@keyframes finalReveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+```
+
+/* PHANTOM: Heading color and position fix */
+.hero-content.show-content {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92%, 800px);
+  padding: 0 0 20px;
+  color: #F0EEE6;
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+/* Keep all hero text ivory */
+.hero-content .eyebrow,
+.hero-content h1,
+.hero-content .description {
+  color: #F0EEE6 !important;
+}
+
+/* Cinematic heading reveal */
+.hero-content.show-content h1 {
+  color: #F0EEE6 !important;
+  opacity: 1;
+  animation: phantomHeadingReveal 2s 0.3s ease both !important;
+}
+
+@keyframes phantomHeadingReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    letter-spacing: 10px;
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 3px;
+    filter: blur(0);
+  }
+}
+
+/* Slightly smaller luxury heading */
+.hero-content.show-content h1 {
+  font-size: clamp(36px, 5.5vw, 68px) !important;
+  line-height: 1;
+  letter-spacing: 3px;
+}
+
+@media (max-width: 600px) {
+  .hero-content.show-content h1 {
+    font-size: clamp(32px, 9vw, 48px) !important;
+    letter-spacing: 2px;
+  }
+}
+
+/* Fix header visibility on dark video */
+.navbar {
+  z-index: 100 !important;
+  color: #F0EEE6 !important;
+}
+
+.navbar .brand,
+.navbar .edition,
+.navbar a {
+  color: #F0EEE6 !important;
+}
+
+/* Keep sound button visible */
+.navbar .sound-button {
+  color: #F0EEE6 !important;
+  border-color: rgba(240, 238, 230, 0.65) !important;
+  background: rgba(8, 18, 15, 0.35);
+}
+
+/* Dark cinematic shadow without hiding the car */
+.hero.shadow-mode .video-overlay {
+  opacity: 0.82 !important;
+}
+
+/* Make bottom discovery link visible */
+.text-link,
+.discover .text-link {
+  color: #F0EEE6 !important;
+  border-bottom-color: rgba(240, 238, 230, 0.7) !important;
+}
+
+/* Keep hero bottom labels readable */
+.hero-footer,
+.scroll-indicator {
+  color: #F0EEE6 !important;
+}
+
+/* Make the Discover section text readable */
+.discover {
+  background: linear-gradient(
+    180deg,
+    #12382F 0%,
+    #08120F 100%
+  ) !important;
+  color: #F0EEE6 !important;
+}
+
+.discover h2,
+.discover .eyebrow,
+.discover p {
+  color: #F0EEE6 !important;
+}
+
+.hero-content {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.hero-content.show-content {
+  opacity: 1;
+}
+
+
+/* DISCOVER PHANTOM button color fix */
+a.cta {
+  color: #F0EEE6 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-decoration: none !important;
+  border-color: #F0EEE6 !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+a.cta span {
+  color: #F0EEE6 !important;
+}
+
+a.cta:hover {
+  color: #BFC8C6 !important;
+}
+
+a.cta:hover span {
+  color: #BFC8C6 !important;
+}
+
+
+/* Discover Phantom — soft ivory color */
+a.cta {
+  color: #F0EEE6 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: 0 0 8px rgba(240, 238, 230, 0.18);
+}
+
+a.cta span {
+  color: #F0EEE6 !important;
+}
+
+a.cta:hover,
+a.cta:hover span {
+  color: #BFC8C6 !important;
+}
+
+
+
+
+
+
+
+
